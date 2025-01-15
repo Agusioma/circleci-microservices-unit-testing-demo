@@ -1,9 +1,8 @@
-from django.test import TestCase
-
 # Create your tests here.
 from django.test import TestCase
 from unittest.mock import patch
 from django.urls import reverse
+
 
 class GeneratePieChartTest(TestCase):
     @patch('chart.views.requests.get')
@@ -17,18 +16,14 @@ class GeneratePieChartTest(TestCase):
 
     @patch('chart.views.requests.get')
     def test_empty_api_response(self, mock_get):
-        ## should get a matplotlibe exception
-        ## if not, there should be a 200 OK response
-        try:
-            mock_get.side_effect = [MockResponse([], 200), MockResponse([], 200)]
-            response = self.client.get(reverse('generate_pie_chart'))
-            self.assertEqual(response.status_code, 200)
-        except Exception as e:
-            self.assertEqual(504,200)
+        mock_get.side_effect = [MockResponse([], 200), MockResponse([], 200)]
+        response = self.client.get(reverse('generate_pie_chart'))
+        self.assertEqual(response.status_code, 500)
 
     def test_invalid_route(self):
         response = self.client.get('/invalid-route/')
         self.assertEqual(response.status_code, 404)
+
 
 class MockResponse:
     def __init__(self, json_data, status_code):

@@ -25,15 +25,20 @@ def generate_pie_chart(request):
     colors = ['#66b3ff', '#99ff99']
 
     # Create the pie chart
-    plt.figure(figsize=(9, 6))
-    plt.pie(sizes, labels=labels, colors=colors, autopct='%1.1f%%', startangle=90)
-    plt.title("Veterinarians vs Visits")
+    try:
+        plt.figure(figsize=(9, 6))
+        plt.pie(sizes, labels=labels, colors=colors, autopct='%1.1f%%', startangle=90)
+        plt.title("Veterinarians vs Visits")
 
-    # Save the chart to an in-memory buffer
-    buffer = BytesIO()
-    plt.savefig(buffer, format='png')
-    plt.close()
-    buffer.seek(0)
+        # Save the chart to an in-memory buffer
+        buffer = BytesIO()
+        plt.savefig(buffer, format='png')
+        plt.close()
+        buffer.seek(0)
 
-    # Return the chart as a response
-    return HttpResponse(buffer, content_type='image/png')
+        # Return the chart as a response
+        return HttpResponse(buffer, content_type='image/png')
+    except Exception as e:
+        return HttpResponse(f"An unexpected error: {e}", status=500)
+
+

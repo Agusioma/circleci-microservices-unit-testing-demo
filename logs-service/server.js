@@ -32,8 +32,15 @@ app.post('/api/logs', async (req, res) => {
 
 // Start the server
 const PORT = process.env.PORT || 5001;
-app.listen(PORT, () => {
+const server = app.listen(PORT, () => {
     console.log(`Logs Service running on port ${PORT}`);
 });
+
+// Expose `server` to the global context or for easy access in tests
+app.server = server;
+
+app.closeServer = () => {
+    server.close();
+};
 
 module.exports = app;

@@ -26,8 +26,12 @@ describe('POST /api/logs', () => {
         jest.clearAllMocks();
     });
 
+    afterAll(async () => {
+        await new Promise((resolve) => setTimeout(() => resolve(), 500)); // avoid jest open handle error
+        app.closeServer();
+    });
+
     test('should save a log and return 201 with the log object', async () => {
-        // Mock Log.create
         jest.spyOn(Log, 'create').mockResolvedValueOnce({
             id: 1,
             message: 'Test log message',
@@ -35,8 +39,8 @@ describe('POST /api/logs', () => {
         });
 
         const response = await request(app)
-            .post('/api/logs')
-            .send({ message: 'Test log message' });
+        .post('/api/logs')
+        .send({ message: 'Test log message' });
 
         expect(response.status).toBe(201);
         expect(response.body).toEqual({
@@ -60,14 +64,10 @@ describe('POST /api/logs', () => {
         jest.spyOn(Log, 'create').mockRejectedValueOnce(new Error('Unknown database error'));
 
         const response = await request(app)
-            .post('/api/logs')
-            .send({ message: 'Test log message' });
+        .post('/api/logs')
+        .send({ message: 'Test log message' });
 
         expect(response.status).toBe(500);
         expect(response.body).toEqual({ error: 'Failed to save log' });
     });
-    afterEach(done => {
-        jest.clearAllMocks();
-        done();
-    })
 });

@@ -17,12 +17,14 @@ class GeneratePieChartTest(TestCase):
 
     @patch('chart.views.requests.get')
     def test_empty_api_response(self, mock_get):
+        ## should get a matplotlibe exception
+        ## if not, there should be a 200 OK response
         try:
             mock_get.side_effect = [MockResponse([], 200), MockResponse([], 200)]
             response = self.client.get(reverse('generate_pie_chart'))
             self.assertEqual(response.status_code, 200)
         except Exception as e:
-            self.assertNotEqual(504,200)
+            self.assertEqual(504,200)
 
     def test_invalid_route(self):
         response = self.client.get('/invalid-route/')

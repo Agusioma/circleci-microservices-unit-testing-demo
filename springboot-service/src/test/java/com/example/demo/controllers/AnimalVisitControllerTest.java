@@ -80,6 +80,6 @@ class AnimalVisitControllerTest {
         // Assert
         assertEquals("redirect:/visits", viewName);
         verify(animalVisitService).saveVisit(visit); // Verify saveVisit was called
-        verify(logServiceInterceptorHelper).addLog("INFO: New animal visit added: Teddy"); // Verify log was added
+        verify(logServiceInterceptorHelper).addLog("INFO: New animal visit added: Buddy"); // Verify log was added
     }
 }

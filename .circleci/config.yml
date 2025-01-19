@@ -40,7 +40,7 @@ jobs:
           paths:
             - ~/.m2/repository
   test-python:
-    # Install dependencies and run tests
+    # Install dependencies and run tests yes
     docker:
       - image: cimg/python:3.8-node
     working_directory: ~/project/stats-service

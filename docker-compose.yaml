@@ -1,0 +1,60 @@
+version: '3.9'
+
+services:
+  mysql-db:
+    image: mysql:latest
+    container_name: mysql_db_container
+    environment:
+      MYSQL_USER: taa
+      MYSQL_PASSWORD: 4141
+      MYSQL_ROOT_PASSWORD: root_password
+    volumes:
+      - docker_db_data:/var/lib/mysql
+      - ./mysql-init-scripts:/docker-entrypoint-initdb.d
+    ports:
+      - "3306:3306"
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "127.0.0.1"]
+      interval: 10s
+      timeout: 10s
+      retries: 5
+
+  logs-service:
+    build:
+      context: ./logs-service
+    depends_on:
+      mysql-db:
+        condition: service_healthy
+    ports:
+      - "5001:5001"
+    healthcheck:
+      test: ["CMD", "curl", "http://localhost:5001/api/logs"]
+      interval: 30s
+      retries: 3
+
+  springboot-service:
+    build:
+      context: ./springboot-service
+    depends_on:
+      mysql-db:
+        condition: service_healthy
+    ports:
+      - "8080:8080"
+    healthcheck:
+      test: ["CMD", "curl", "http://localhost:8080/visits"]
+      interval: 30s
+      retries: 3
+
+  stats-service:
+    build:
+      context: ./stats-service
+    depends_on:
+      springboot-service:
+        condition: service_healthy
+      logs-service:
+        condition: service_healthy
+    ports:
+      - "8000:8000"
+
+volumes:
+  docker_db_data:

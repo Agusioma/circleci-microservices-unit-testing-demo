@@ -2,12 +2,15 @@
 FROM mysql:latest
 
 # Set environment variables for MySQL
-ENV MYSQL_ROOT_PASSWORD root_password
-ENV MYSQL_DATABASE microservicesDB
+ENV MYSQL_USER=taa
+ENV MYSQL_PASSWORD=root_password1
+ENV MYSQL_ROOT_PASSWORD=root_password
+ENV MYSQL_DATABASE=microservicesDB
 
 # Copy the SQL startup script
 COPY ./mysql-init-scripts/init-app.sql /docker-entrypoint-initdb.d/
 
 # Expose MySQL port
 EXPOSE 3306
+
 

@@ -1,7 +1,5 @@
--- Create the user 'taa'
-CREATE USER 'taa'@'mysql-db' IDENTIFIED BY '4141';
-
--- Granting all privileges to user 'taa' on all databases
+DROP USER IF EXISTS 'taa'@'mysql-db';
+CREATE USER 'taa'@'mysql-db' IDENTIFIED BY 'root_password1';
 GRANT ALL PRIVILEGES ON *.* TO 'taa'@'mysql-db' WITH GRANT OPTION;
 FLUSH PRIVILEGES;
 

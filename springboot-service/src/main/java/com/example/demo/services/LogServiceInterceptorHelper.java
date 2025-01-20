@@ -7,7 +7,7 @@ import java.util.Map;
 
 @Service
 public class LogServiceInterceptorHelper {
-    private final String LOGS_SERVICE_URL = "http://localhost:5001/api/logs";
+    private final String LOGS_SERVICE_URL = "http://logs-service:5001/api/logs";
 
     public void addLog(String message) {
         RestTemplate restTemplate = new RestTemplate();

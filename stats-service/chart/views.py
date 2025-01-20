@@ -7,8 +7,8 @@ from io import BytesIO
 
 def generate_pie_chart(request):
     # Fetch data from Spring Boot APIs
-    visits_url = "http://localhost:8080/visits"
-    veterinarians_url = "http://localhost:8080/veterinarians"
+    visits_url = "http://springboot-service:8080/visits"
+    veterinarians_url = "http://springboot-service:8080/veterinarians"
 
     try:
         visits_response = requests.get(visits_url)

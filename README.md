@@ -2,9 +2,9 @@
 
 This repository demonstrates a microservices architecture using Docker Compose. The system consists of three microservices:
 
-1. **Spring Boot Service**
-2. **Stats Service**
-3. **Logs Service**
+1. **Spring Boot Service(`springboot-service`)**
+2. **Stats Service(`stats-service`)**
+3. **Logs Service(`logs-service`)**
 
 The services interact with a MySQL database to provide functionality for capturing and managing data related to animal visits and veterinarians.
 

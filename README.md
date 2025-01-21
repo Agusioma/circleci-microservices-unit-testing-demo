@@ -90,5 +90,5 @@ This command stops and removes the containers but preserves the database data st
 
 ---
 
-Enjoy exploring the microservices architecture! If you have any questions, feel free to open an issue in this repository.
+If you have any questions, feel free to open an issue in this repository.
 

@@ -25,8 +25,8 @@ Follow these steps to run the microservices:
 
 1. **Clone the Repository:**
    ```bash
-   git clone <repository_url>
-   cd <repository_folder>
+   git clone https://github.com/Agusioma/circleci-microservices-unit-testing-demo.git
+   cd circleci-microservices-unit-testing-demo
    ```
 
 2. **Start the Docker Containers:**

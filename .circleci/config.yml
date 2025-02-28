@@ -1,9 +1,7 @@
-# This config was automatically generated from your source code
-# Stacks detected: deps:java:springboot-service,deps:node:logs-service,deps:python:stats-service,file:manage.py:stats-service
 version: 2.1
 orbs:
-  node: circleci/node@5
-  python: circleci/python@2
+  node: circleci/node@7.1.0
+  python: circleci/python@3.0.0
 jobs:
   test-node:
     # Install node dependencies and run tests
@@ -19,7 +17,7 @@ jobs:
           command: npm test --passWithNoTests
   test-java:
     docker:
-      - image: cimg/openjdk:17.0
+      - image: cimg/openjdk:23.0.2
     working_directory: ~/project/springboot-service
     steps:
       - checkout:
@@ -42,7 +40,7 @@ jobs:
   test-python:
     # Install dependencies and run tests yes
     docker:
-      - image: cimg/python:3.8-node
+      - image: cimg/python:3.13.2
     working_directory: ~/project/stats-service
     steps:
       - checkout:
